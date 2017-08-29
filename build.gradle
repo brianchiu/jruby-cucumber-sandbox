@@ -1,0 +1,37 @@
+buildscript {
+	repositories {
+		jcenter()
+	}
+
+	dependencies {
+		classpath 'com.github.jruby-gradle:jruby-gradle-plugin:1.5.0'
+	}
+}
+
+apply plugin: "com.github.jruby-gradle.base"
+
+import com.github.jrubygradle.JRubyExec
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	jrubyExec "rubygems:capybara:2.15.1"
+	jrubyExec "rubygems:cucumber:2.4.0"
+	jrubyExec "rubygems:selenium-webdriver:3.5.1"
+}
+
+task cucumber(type: JRubyExec) {
+	if (project.hasProperty("cukeArgs")) {
+		println("Running: cucumber ${cukeArgs}");
+
+		script "cucumber";
+		scriptArgs cukeArgs.split(" ");
+	}
+	else {
+		println("Running: cucumber");
+
+		script "cucumber";
+	}
+}
