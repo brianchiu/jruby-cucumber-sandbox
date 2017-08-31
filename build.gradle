@@ -35,3 +35,7 @@ task cucumber(type: JRubyExec) {
 		script "cucumber";
 	}
 }
+
+task hashi(type: JRubyExec) {
+	script "${projectDir}/test.rb"
+}
